@@ -48,3 +48,5 @@ Life cycle
 		+ Unmounting
 			componentWillUnmount()
 	
+
+https://viblo.asia/p/cach-su-dung-reactjs-component-lifecycle-methods-924lJYkYZPM
