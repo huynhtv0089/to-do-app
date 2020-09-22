@@ -1,3 +1,9 @@
+Setup react environment
+	- npm install -g create-react-app
+	- npx create-react-app my-app
+	- cd my-app
+	- npm start
+	
 React Render HTML và JSX
 	- React Render HTML
 		+ Function ReactDOM.render() is to display the specified HTML code inside the specified HTML element. 
