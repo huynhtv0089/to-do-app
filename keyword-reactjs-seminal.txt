@@ -1,10 +1,50 @@
+React Render HTML và JSX
+	- React Render HTML
+		+ Function ReactDOM.render() is to display the specified HTML code inside the specified HTML element. 
+	      The function takes two arguments, JSX code and an HTML element.
+	  
+	- JSX:
+		+ JSX allows us to write HTML elements in JavaScript and place them in the DOM
+		+ With JSX we can write expressions inside curly braces { }
+		+ To write HTML on multiple lines, put the HTML inside parentheses ( )
+		+ The HTML code must be wrapped in ONE top level element. So if you like to write two tags HTML sibling, you must put them inside a parent element, like a div element
+		+ JSX follows XML rules, and therefore HTML elements must be properly closed.
+		
 Component
 	- Components let you split the UI into independent, reusable pieces, and think about each piece in isolation.
-	- Function and Class Components
+	- Components are like JavaScript functions
+	- Components come in two types, Class components and Function components
 	- Note: Always start component names with a capital letter.
 		React treats components starting with lowercase letters as DOM tags. For example, <div /> represents an HTML div tag, but <Welcome /> represents a component and requires Welcome to be in scope.
-	- State và props
-	  + props: Props have been used to send data to the other components. Every component is treated as a pure javascript function. Props are equivalent to parameters of a pure function so props are Read-Only (immutable)
-	- JSX
+		
+State và props
+	- props: 
+		+ Props stands for properties.
+		+ Props have been used to pass data into the other components. 
+		+ Every component is treated as a pure javascript function. 
+		+ Props are equivalent to parameters of a pure function so props are Read-Only (immutable)
+	- state: 
+		+ State is like a data store to the ReactJS component. It is mostly used to update the component when user performed some action like clicking button, typing some text, pressing some key, etc.
+		+ The state object is initialized in the constructor. The inital data can be hard coded.
+		+ To change a value in the state object, use the this.setState() method. When a value in the state object changes, the component will re-render, meaning that the output will change according to the new value(s).
+			Note: Always use the setState() method to change the state object, it will ensure that the component knows its been updated and calls the render() method (and all the other lifecycle methods)
 
 Life cycle
+	- Each component in React has a lifecycle which you can monitor and manipulate during its three main phases.
+	- The three phases are: Mounting, Updating, and Unmounting.
+		+ Mounting
+			constructor()
+			static getDerivedStateFromProps()
+			render()
+			componentDidMount()
+		
+		+ Updating
+			static getDerivedStateFromProps()
+			shouldComponentUpdate()
+			render()
+			getSnapshotBeforeUpdate()
+			componentDidUpdate()
+		
+		+ Unmounting
+			componentWillUnmount()
+	
