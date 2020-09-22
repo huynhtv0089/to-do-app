@@ -3,7 +3,8 @@ Component
 	- Function and Class Components
 	- Note: Always start component names with a capital letter.
 		React treats components starting with lowercase letters as DOM tags. For example, <div /> represents an HTML div tag, but <Welcome /> represents a component and requires Welcome to be in scope.
-	State và props
-	JSX
+	- State và props
+	  + props: Props have been used to send data to the other components. Every component is treated as a pure javascript function. Props are equivalent to parameters of a pure function so props are Read-Only (immutable)
+	- JSX
 
 Life cycle
