@@ -1,0 +1,43 @@
+#server.js
+```
+const express = require('express');
+const app = express();
+const path = require('path');
+
+app.use(express.static(path.join(__dirname, 'build')));
+
+
+app.get('/*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+var server = app.listen((process.argv[2] || 4000), () => {
+    var host = server.address().address;
+    var port = server.address().port;
+    console.log('Fontend is listening at http://%s:%s', host, port);
+})
+```
+
+#Dockerfile
+```
+FROM node:12
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Bundle app source
+# Copy all file to path: /usr/src/app,
+COPY . .
+
+RUN npm install
+
+EXPOSE 4000
+
+CMD ["node", "server.js"]
+```
+
+#.dockerignore
+```
+node_modules
+npm-debug.log
+```
