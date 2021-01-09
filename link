@@ -1,7 +1,7 @@
 https://vi.wikipedia.org/wiki/Tr%C3%A1i_phi%E1%BA%BFu
 https://vi.wikipedia.org/wiki/Tr%C3%A1i_phi%E1%BA%BFu_ch%C3%ADnh_ph%E1%BB%A7#:~:text=Tr%C3%A1i%20phi%E1%BA%BFu%20ch%C3%ADnh%20ph%E1%BB%A7%2C%20c%C3%B4ng,Anh%20g%E1%BB%8Di%20l%C3%A0%20sovereign%20bond).
 https://vi.wikipedia.org/wiki/Goldman_Sachs
-http://tapchitaichinh.vn/tai-chinh-quoc-te/ngan-hang-lon-nhat-nuoc-my-linh-an-phat-ky-luc-vi-thao-tung-thi-truong-328187.html#local:abc@123&deploy:vccb#2018
+http://tapchitaichinh.vn/tai-chinh-quoc-te/ngan-hang-lon-nhat-nuoc-my-linh-an-phat-ky-luc-vi-thao-tung-thi-truong-328187.html#l:abc@123&d:vccb#2018
 
 https://laodong.vn/the-gioi/thoi-diem-chinh-thuc-cong-bo-ket-qua-bau-cu-tong-thong-my-851456.ldo
 
@@ -16,3 +16,9 @@ Deployment
     url: "jdbc:oracle:thin:@//172.29.5.2:1521/vccbservice"
     username: "VCCBZALOPAY_CONFIG"
     password: "ENC(qP7MhZEQJ7yPVDqBWz+xjeBulbSPQl/p)" 
+
+page
+page_role
+roles
+users
+users_roles
