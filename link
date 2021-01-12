@@ -5,6 +5,12 @@ http://tapchitaichinh.vn/tai-chinh-quoc-te/ngan-hang-lon-nhat-nuoc-my-linh-an-ph
 
 https://laodong.vn/the-gioi/thoi-diem-chinh-thuc-cong-bo-ket-qua-bau-cu-tong-thong-my-851456.ldo
 
+adapter:
+  hibernate:
+    url: "jdbc:mysql://10.50.1.8:3306/sbi_adapter"
+    username: "dbgtest"
+    password: "ENC(6qDXir7fmDFDL71fFVEayg==)" 
+
 Local:
   hibernate:
     url: "jdbc:mysql://10.50.1.8:3306/sbi_admin"
