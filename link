@@ -19,4 +19,5 @@ Còn nếu không sử dụng @Transactional thì khi có exception nó sẽ kh�
     tới database, đâm ra sẽ bị timeout connection khác.
 Ví dụ: hãy viết 1 Store Procedure và dung Hiraki làm 1 pull, mình sẽ có 1 for loop để request tới Database để gọi store đó để quăng ra exception
        Test 1: theo kiểu lần 1 để @Transactional và xem kết quả
-       Test 2: không để @Transactional và xem kết quả
+       Test 2: không để @Transactional và xem kết quả là: nếu connection pool là 20 thì nó sẽ loop 20 lần có quăng ra exeption và giữ luôn connection đó và không đóng
+               nên từ vòng lặp thứ 21 sẽ bị timeout do đầy connection rồi. Các khắc phục là để annotaion @Transactional để nó rollback và đóng connection khi có Exception.
