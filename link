@@ -14,6 +14,17 @@ https://medium.com/@joeclever/using-multiple-datasources-with-spring-boot-and-sp
 https://www.logicbig.com/how-to/code-snippets/jcode-spring-framework-threadpooltaskexecutor.html
 
 
+Error: Unable to acquire JDBC Connection
+Answer:
+Sounds to me like an issue with your transaction boundaries, which aren't releasing the connections back to the pool. 
+Could you try putting @Transactional on your LogRepositoryImpl class?
+```
+    @Repository
+    @Transactional
+    public class LogRepositoryImpl implements LogRepository {
+        . . . 
+    }
+```
 Phải sử dụng annotation @Transactional để khi có Exception thì nó sẽ rollback và đóng connection
 Còn nếu không sử dụng @Transactional thì khi có exception nó sẽ không callback mà còn GIỮ LUÔN connection ở trong pool và sẽ không còn connection Nhàn Rỗi cho 1 request khác
     tới database, đâm ra sẽ bị timeout connection khác.
