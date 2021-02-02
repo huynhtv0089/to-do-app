@@ -12,3 +12,11 @@ Nhận biết đưuòng giá đang trong giai đoạn nào
 https://medium.com/@joeclever/using-multiple-datasources-with-spring-boot-and-spring-data-6430b00c02e7
 
 https://www.logicbig.com/how-to/code-snippets/jcode-spring-framework-threadpooltaskexecutor.html
+
+
+Phải sử dụng annotation @Transactional để khi có Exception thì nó sẽ rollback và đóng connection
+Còn nếu không sử dụng @Transactional thì khi có exception nó sẽ không callback mà còn GIỮ LUÔN connection ở trong pool và sẽ không còn connection Nhàn Rỗi cho 1 request khác
+    tới database, đâm ra sẽ bị timeout connection khác.
+Ví dụ: hãy viết 1 Store Procedure và dung Hiraki làm 1 pull, mình sẽ có 1 for loop để request tới Database để gọi store đó để quăng ra exception
+       Test 1: theo kiểu lần 1 để @Transactional và xem kết quả
+       Test 2: không để @Transactional và xem kết quả
