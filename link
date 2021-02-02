@@ -25,6 +25,7 @@ Could you try putting @Transactional on your LogRepositoryImpl class?
         . . . 
     }
 ```
+
 Phải sử dụng annotation @Transactional để khi có Exception thì nó sẽ rollback và đóng connection
 Còn nếu không sử dụng @Transactional thì khi có exception nó sẽ không callback mà còn GIỮ LUÔN connection ở trong pool và sẽ không còn connection Nhàn Rỗi cho 1 request khác
     tới database, đâm ra sẽ bị timeout connection khác.
