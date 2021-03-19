@@ -30,3 +30,17 @@ Liệt kê những module quan trọng của Spring framework
   Spring Web Module – hỗ trợ phát triển ứng dụng web.
   Spring MVC – Model-View-Controller hỗ trợ phát triển web application, web services vv.
 
+
+1. Producer send message đều đặn/thường xuyên
+2. Kafka Broker sẽ lưu trữ message trong partitions đã được cấu hình cho 1 topic đặt biệt
+   Nếu Producer gửi 2 message và có 2 partitions, kafka sẽ lưu 1 message vào partitions đầu tiền và message thứ 2 sẽ lưu vào partitions thứ 2
+3. Comsumer subscibes to specific Topic
+4. Khi Comsumer đã theo dõi Topic nào đó. Kafka sẽ cung cấp offset hiện tại của Topic cho Comsummer và cũng lưu luôn Offset trong Zookeeper ensemble
+5. Consummer sẽ request Kafka thường xuyên (khoảng 100ms) để kiếm message mới.
+6. Một khi Kafka nhận message từ Producer, nó sẽ chuyển tiếp message tới Consumer
+7. Consumer sẽ nhận message và process nó
+8. Một khi message được được processed. Consummer sẽ gửi acknowledgement tới Kafka Broker
+9. Một khi kafka nhận acknowledgement, nó sẽ thay đổi offset mới và cập nhật vào lại Zookeeper. Bởi vì offset được duy trì trong zookeeper, consumer
+	có thể đọc message tiếp theo chính xác trong suốt thời kỳ server bị ép buộc
+10. flow trên sẽ lặp lại cho đến khi comsumer dừng request
+11. Comsumer có option để rewind/skip tới the desired offset của topic và bất cứ thời điểm nào và đọc tuần tự tất cả message
