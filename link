@@ -31,24 +31,6 @@ Liệt kê những module quan trọng của Spring framework
   Spring MVC – Model-View-Controller hỗ trợ phát triển web application, web services vv.
 
 
-Monolithic về lâu dài
-	thêm code
-	logic code phức tạp hơn
-	connect tới nhiều thứ khác
-	mỗi lần deploy phiên bản mới, làm thời gian downtime lên rất cao
-Microservice, chia nhỏ ứng dụng lớn ra thành các dịch vụ nhỏ kết nối với nhau, dễ scale ứng dụng/product  hơn rất nhiều
-Ưu điểm:
-	1. phát triển nhanh hơn và dễ bảo trì với các service nhỏ
-	2. các microservice có thể sử dụng các ngôn ngữ khác để năm bắt xu thế, hoặc phù hợp với business hơn. Và các microserice có thể giao tiếp với
-		nhau thông qua RestAPI, MessageQueue, RPC(Remote Procedure Call), SOAP....
-	3. các microservice được triển khia 1 cách độc lập và khi deploy sẽ có thể không làm gián đoạn của cả ứng dụng.
-Nhược điểm:
-	Sẽ khó kiểm soát nếu có quá nhiều microserice
-	Sẽ sử lý về hơn nếu sự cố xảy ra như: request/response chậm, lỗi connect, lỗi timeout
-	Microserice thì dữ liệu sẽ bị phân tán, nên các service sync dữ liệu sẽ khó khăn hơn rất nhiều
-	Khó testing 1 micro serice sẽ khó khăn, nếu 1 logic business nó liên quan tới các microservice khác
-	Có thể làm việc với các môi trường khác nhau phù hợp với service đó. Ví dụ có service đã phát triển cách đây 5 năm chạy trên java 6, và hiện tại là
-		java 11, nên sẽ cần docker để start service, hoặc lúc develop sẽ switch các version phù hợp của service
 	
 	
 Theo CAP(CAP theorem) thì giao dịch phân tán sẽ không thể thỏa mãn cả 3 điều kiện: 
