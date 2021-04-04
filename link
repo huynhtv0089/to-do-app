@@ -44,3 +44,24 @@ https://topdev.vn/blog/giai-dap-nhung-thac-mac-ki-thuat-quan-trong-ve-microservi
 https://duythanhcse.wordpress.com/2020/11/30/bai-1-gioi-thieu-vert-x-lap-trinh-java-backend/
 https://duythanhcse.wordpress.com/2020/12/01/bai-3-kien-truc-va-co-che-hoat-dong-cua-vertx/
 https://codersontrang.wordpress.com/2017/09/05/blocking-va-non-blocking-trong-lap-trinh/
+
+
+if (parentId == 0) { 	//root
+	DELETE
+	FROM TCTTTD_CATEGORY_RECEIPT_MANAGE
+	WHERE ID IN (
+		SELECT ID FROM TCTTTD_CATEGORY_RECEIPT_MANAGE WHERE PARENT_ID = 9999;
+		UNION
+		SELECT ID FROM TCTTTD_CATEGORY_RECEIPT_MANAGE WHERE PARENT_ID IN (SELECT ID 
+										  FROM TCTTTD_CATEGORY_RECEIPT_MANAGE 
+										  WHERE PARENT_ID = 9999);
+	)
+} else { 		//Child
+	DELETE
+	FROM TCTTTD_CATEGORY_RECEIPT_MANAGE
+	WHERE ID IN (
+		SELECT ID 
+		FROM TCTTTD_CATEGORY_RECEIPT_MANAGE 
+		WHERE PARENT_ID = 8888
+	)
+}
