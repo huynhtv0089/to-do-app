@@ -46,22 +46,236 @@ https://duythanhcse.wordpress.com/2020/12/01/bai-3-kien-truc-va-co-che-hoat-dong
 https://codersontrang.wordpress.com/2017/09/05/blocking-va-non-blocking-trong-lap-trinh/
 
 
-if (parentId == 0) { 	//root
-	DELETE
-	FROM TCTTTD_CATEGORY_RECEIPT_MANAGE
-	WHERE ID IN (
-		SELECT ID FROM TCTTTD_CATEGORY_RECEIPT_MANAGE WHERE PARENT_ID = 9999;
-		UNION
-		SELECT ID FROM TCTTTD_CATEGORY_RECEIPT_MANAGE WHERE PARENT_ID IN (SELECT ID 
-										  FROM TCTTTD_CATEGORY_RECEIPT_MANAGE 
-										  WHERE PARENT_ID = 9999);
-	)
-} else { 		//Child
-	DELETE
-	FROM TCTTTD_CATEGORY_RECEIPT_MANAGE
-	WHERE ID IN (
-		SELECT ID 
-		FROM TCTTTD_CATEGORY_RECEIPT_MANAGE 
-		WHERE PARENT_ID = 8888
-	)
-}
+D:/workspace/tool/apache-maven-3.6.0/bin/mvn --settings D:/workspace/tool/apache-maven-3.6.0/conf/settings.xml clean install
+
+“props” (which stands for properties)
+
+Thực ra, cụm từ này bắt nguồn từ các môn thể thao trước kia, khi người ta kẻ một vạch trên sân chơi (SCRATCH THE GROUND) để lấy đích xuất phát. Vì thế, hiểu nôm na START FROM SCRATCH tức là làm việc gì đó từ điểm xuất phát mà không được chuẩn bị trước hoặc không lợi thế (tức là từ tay trắng)
+
+cif = customer information file
+
+========================================================================================================================================================================
+File pom.xml add dependency
+- Nếu dependency trong file pom.xml là 1 gói jar của dự án khác thì có 2 cách:
+	* Cách 1: sử dụng <scope> và <systemPath>
+		ví dụ:  <dependency>
+					<groupId>vn.vccb</groupId>
+					<artifactId>it</artifactId>
+					<version>1.0.0</version>
+					<scope>system</scope>
+					<systemPath>${basedir}/jarlib/it-1.0.0.jar</systemPath>
+				</dependency>
+		NOTE: Cách này nếu sau này build Project thành package Jar, và khi run gói Jar đó sẽ gặp lỗi, vì nó sẽ ko biết đc dependency trên không tồn tại
+		
+	* Cách 2: sử dụng biến môi trường mvn để cài đặt gói Jar Dependency library đó vào trong máy (vào trong thư mục m2)
+		ví dụ: mvn install:install-file -Dfile=jarlib/core-model-1.0.0.jar -DgroupId=vn.vccb -DartifactId=core-model -Dversion=1.0.0 -Dpackaging=jar
+			Trong đó: -Dfile 		-> là path để nói jar library
+					  -DgroupId 	-> là Group Id của gói jar library
+					  -DartifactId 	-> là Artifact Id của gói jar library
+					  -Dversion		-> là version của gói jar library
+					  -Dpackaging	-> định dạng của library
+			Thì trong file pom.xml chỉ cần khai báo dependency như thế này là có thể chạy được
+				<dependency>
+					<groupId>vn.vccb</groupId>
+					<artifactId>core-model</artifactId>
+					<version>1.0.0</version>
+				</dependency>
+			Vì mình đã install library vào thư muc .m2 nên file pom.xml đã tìm đc library
+		NOTE: Cách này tốt cho lúc build project thành gói Jar
+
+========================================================================================================================================================================
+Git
+	- Khi add remote có 2 lựa chọn là: remote ssh hoặc remote https. 
+	  Nếu muốn xóa remove: git remote rm <remote-name> => vi du: git remote rm origin
+		list remote: git remote -v  
+		
+	- Set lại user orgin khi password user đã thay đổi 
+		git remote set-url origin git@github.com:username/repo.git
+		hoặc
+		git remote add origin https://{username}:{password}@github.com/repo.git
+	  Nên sử dụng Powershell để config, hoặc dùng CMD của Visual Code để config
+	
+	Cach set username and password vào link git remote (Nên sử dụng Powershell)
+	git remote add origin https://"xxx:xxx"@gitlab.vietcapitalbank.com.vn/vyht/ms-api-react-base.git
+	
+========================================================================================================================================================================
+npm config set proxy http://"{id}:{password}"@proxy.vietcapitalbank.com.vn:9090
+npm config set https-proxy http://"{id}:{password}"@proxy.vietcapitalbank.com.vn:9090
+npm config set registry http://registry.npmjs.org/
+
+npx create-react-app my-app
+
+========================================================================================================================================================================
+Cách pass 1 Object qua props, ES6
+ví dụ có object todo = {
+					'id': 1,
+					'text': 'abcdefgh'
+					'completed': false
+				}
+	Muốn pass qua props object:
+		   cách ES6: <Todo {...todo} />
+		cách thường: <Todo id={todo.id} text={todo.text} completed={todo.completed} />
+		
+=========================================================================================================================================================================
+Adding an .env file to React Project (link: https://stackoverflow.com/questions/49579028/adding-an-env-file-to-react-project)
+	So I'm myself new to React and I found a way to do it.
+	This solution does not require any extra packages.
+
+	Step 1: https://create-react-app.dev/docs/adding-custom-environment-variables/
+		In the above docs they mention export in Shell and other options, the one I'll attempt to explain is using .env file
+
+	1.1 create Root/.env
+		```
+			#.env file
+			REACT_APP_SECRET_NAME=secretvaluehere123
+			Important notes it MUST start with REACT_APP_
+		```
+	1.2 Access ENV variable
+		```
+			#App.js file or the file you need to access ENV
+			<p>print env secret to HTML</p>
+			<pre>{process.env.REACT_APP_SECRET_NAME}</pre>
+
+			handleFetchData() { // access in API call
+			  fetch(`https://awesome.api.io?api-key=${process.env.REACT_APP_SECRET_NAME}`)
+				.then((res) => res.json())
+				.then((data) => console.log(data))
+			}
+		```
+	1.3 Build Env Issue
+	
+	So after I did step 1.1|2 it was not working, then I found the above issue/solution. React read/creates env when is built so you need to npm run start every time you modify the .env file so the variables get updated.
+		
+======================================================================================================================================================================
+** Deploy fontend
+	Step 1: run cmd: "npm run-script build"
+	Step 2: copy folder "build" and then go to the path: "nodejs/fe-lookup-credit" and paste them to that
+	Step 3: run cmd: "docker build -t {name_image}:{tag_version} ."
+	Step 4: run cmd: "docker save --output {name_file_output}.tar {name_image}"
+	Step 5: copy file "{name_file_output}.tar" and then go to 172.27.5.95, and redirect to folder "vyht" and paste them to that
+	Step 6: load image from file .tar, run cmd: "docker load -i {name_file_output}.tar"
+	Step 7: run cmd "docker run -it -d ...."
+
+** Deploy backend to Pipeline Jenkins
+	Step 1: 
+		Create file Jenkinsfile:
+		```
+			pipeline {
+				agent {
+					docker {
+						image 'maven:3-alpine'
+						args '--rm -v /root/.m2:/root/.m2 -p {port_host}:{port_in_container} -v /etc/localtime:/etc/localtime -v /opt/logs:/opt/logs --name=MS-LookupCredit --hostname=127.0.0.1 --net=host'
+					}
+				}
+				stages {
+					stage('Build') {
+						steps {
+							sh 'mvn -B -DskipTests clean package'
+						}
+					}
+					stage('Run') {
+						steps {
+							sh 'mvn spring-boot:run -Dspring-boot.run.jvmArguments=-Duser.timezone=Asia/Ho_Chi_Minh'
+							input message: 'Finished using the web site? (Click "Process" to continue)'
+						}
+					}
+				}
+			}
+		```
+	Step 2: 
+		- go to Jenkins[http://www.172.27.5.95:8080] and then login with user "admin"
+		- go to "Open Blue Ocean", and then go to "new Pipeline", 
+		- choose option "Git" and then paste your URL Repository Git and then chose option "Use existing credential: jenkins/***** ..."
+		
+** Deploy bằng maven và docker (không thông qua con Jenskin)
+	Step 1: Tăng version trong file pom.xml
+	Step 2: xem trong file "Dockerfile", tên gói JAR đúng chứ, tên gói jar trùng với <name>...</name> trong file pom.xml
+	   Vì khi chạy lệnh "mvn clean package", nó build gói jar ra xong là nó tìm file "Dockerfile" để chạy tiếp
+	Step 3: Thêm 1 plugin vào trong file pom.xml
+	   Ví dụ: 
+			<plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.4.9</version>
+                <executions>
+                    <execution>
+                        <id>build</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>push</goal>
+                        </goals>
+                        <configuration>
+                            <repository>172.27.5.95:5000/${project.artifactId}</repository>
+                            <tag>${project.version}</tag>
+                            <finalName>vyht</finalName>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+	Step 4: Dùng docker tren may local, su dung lenh "docker push 172.27.5.95:5000/{ten_du_an=> la ten repository khi len 172.27.5.95:5000}:{tag_version}"
+		Vì khi chạy xong Step 3 thì docker trên máy local đã có 1 image đc build từ Dockerfile rồi, việc còn lại push lên còn 172.27.5.95
+		Lưu ý: Quá trình push lên con 172.27.5.95 sẽ có lúc chứng thực Users, thì ta dùng lệnh: "docker login" và login bằng user LDAP vào
+	Step 5: Lên http://172.27.5.95:8000 check respository đó có chưa
+	Step 6: Vào con 172.27:5.95 và pull repository đó về, sử dụng lệnh: "docker pull 172.27.5.95:5000/{ten_du_an/tên repository}:{tag_version}"
+
+======================================================================================================================================================================
+Docker 
+	Lưu Image ra file, Nạp image từ file
+		Nếu muốn chia copy image ra máy khác ngoài cách đưa lên repository có thể lưu ra file, lệnh sau lưu image có tên myimage rà file
+		```
+			#lưu ra file, có thể chỉ ra đường dẫn đầy đủ nơi lưu file
+			docker save --output myimage.tar myimage
+		```
+		
+		File này có thể lưu trữ, copy đến máy khác và nạp vào docker, để nạp vào docker
+		```
+			docker load -i myimage.tar
+		```
+
+		Đổi tên một Image đang có
+		```
+			docker tag image_id imagename:version
+		```
+
+======================================================================================================================================================================
+Tạo Role: 
+	Step 1: create Roles
+	Step 2: go to "Groups" => add group
+	step 3: go to "Users" => add group to user
+
+======================================================================================================================================================================
+Send mail
+	Step 1: user phải ở trong whitelish
+	Step 2: các parameter cần có để sendmail
+		{
+			"maker": "",				//Tên người tạo, người mà thực hiện send mail trong source, để sau này dễ trace log
+			"makerTime": "new Date()",	//Thời gian người tạo, người thực hiện send mail rong source, để sau này dễ trace log
+			"bcc": "", 
+			"cc": "",
+			"content": "ahihi do ngok",
+			"function": "test", 		//Tên function thực hiện send mail trong source, để sau này dễ trace log
+			"source": "test",			//Tên ứng dụng thực hiện send mail trong source, để sau này dễ trace log
+			"subject": "Test Email",
+			"to": "vyht@vietcapitalbank.com.vn"
+		} 
+		
+		** Coi rõ hơn các API: http://172.27.5.95:8210/swagger-ui.html#/producer-controller/
+		
+	Step 3:
+		String urlNotification = "http://172.27.5.95:8210";
+		String pathSendMailNotification = "/producer/sendEmail";
+		ResSendMail response = restTemplate.postForObject(urlNotification + pathSendMailNotification, request, ResSendMail.class);
+		
+======================================================================================================================================================================
+treo => sudo reboot
+len roi => sh startAll.sh
+
+Neu app duoi 2.0 thi bo package build vao path nay:
+cd root/EAP-6.4.0/standalone/deployments/
+
+5.95 -> Jenkin, Docker, UAT
+
+======================================================================================================================================================================
+Datatable remove colum
+	$('#datatable_custom_3_1').DataTable().row(tr).remove().draw();
